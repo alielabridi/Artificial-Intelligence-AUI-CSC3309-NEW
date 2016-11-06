@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Artificial-Intelligence-AUI-CSC3309-NEW.iml" filepath="$PROJECT_DIR$/.idea/Artificial-Intelligence-AUI-CSC3309-NEW.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Artificial-Intelligence-CSC3309-AUI.iml" filepath="$PROJECT_DIR$/.idea/Artificial-Intelligence-CSC3309-AUI.iml" />
     </modules>
   </component>

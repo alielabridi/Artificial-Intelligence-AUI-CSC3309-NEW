@@ -9,19 +9,19 @@
 class ExploredSet{
 public:
     vector<Node *> Vec;
-    vector<Node*> Hashtable[81]; // the largest number of pegs in all games
+    //vector<Node*> Hashtable[81]; // the largest number of pegs in all games
 
     void add(Node * node){
-        Hashtable[numOfPegs(node)].push_back(node);
+        Vec.push_back(node);
     }
     bool exists(Node * node){
-        for(Node * V : Hashtable[numOfPegs(node)]){
+        for(Node * V : Vec){
             if(V->equals(node))
                 return true;
         }
         return false;
     }
-    int numOfPegs(Node *node){
+/*    int numOfPegs(Node *node){
         int size = dynamic_cast<NodePegs *>(node)->size;
         int Pegs = 0;
         for (int i = 0; i < size; ++i) {
@@ -31,7 +31,7 @@ public:
             }
         }
         return Pegs;
-    }
+    }*/
 };
 
 #endif //ASG2_EXPLOREDSET_H

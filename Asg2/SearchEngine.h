@@ -100,8 +100,8 @@ public:
             }
             frontier.pop();
             exploredSetBFS.add(node);
-
             vector <Node*> successors(node->successorFunction());
+            cout << "the children of the expended node( size: "<< successors.size() << endl;
 
             for (Node* successor: successors) {
                 /*check that the sucessor is not in the frontier and explored set*/
@@ -111,6 +111,7 @@ public:
 
             }
 
+            cout << "end of the children of the expanded node" << endl;
 
         }
         cout << "failure to find the solution" << endl;
