@@ -15,13 +15,15 @@
 struct GreedyComparator{
 public:
     bool operator()(const Node* lhs, const Node* rhs) const{
-        return (lhs->HeuristicValue < rhs->HeuristicValue);
+        /*min heap*/
+        return (lhs->HeuristicValue > rhs->HeuristicValue);
     }
 };
 struct AStarComparator{
 public:
     bool operator()(const Node* lhs, const Node* rhs) const{
-        return ((lhs->HeuristicValue+lhs->pathcost) < (rhs->HeuristicValue+rhs->pathcost));
+        /*min heap*/
+        return ((lhs->HeuristicValue+lhs->pathcost) > (rhs->HeuristicValue+rhs->pathcost));
     }
 };
 
@@ -161,13 +163,16 @@ public:
 
             vector <Node*> successors(node->successorFunction());
             //cout << endl << "THE CHILDREN NODE" << endl;
+            cout << "the children of the expended node( size: "<< successors.size() << endl;
             for (Node* successor: successors) {
                 //check that the sucessor is not in the frontier and explored set
                 if(!exploredSetBFS.exists(successor)){
                     frontier.push(successor);
-                    //successor->printState();
+                    cout << "the value of the heuristic is " << successor->HeuristicValue <<endl;
+                    successor->printState();
                 }
             }
+            cout << "end of the children of the expanded node" << endl;
             //cout << "THE CHILDREN NODE -- END" << endl;
 
 

@@ -22,7 +22,9 @@ public:
         this->size = size;
         /*copy matrix*/
         state = state_;
-        HeuristicValue = totalPossibleMovesHeuristic();
+        /*we negate the value so to take the one with the least value because it describes
+         * the most appreciable one and we have a min heap for the greedy and A* problem*/
+        HeuristicValue = -totalPossibleMovesHeuristic();
     }
 
 
