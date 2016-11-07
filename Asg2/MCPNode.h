@@ -12,95 +12,93 @@ using namespace std;
 
 class NodeMCP : public Node {
 public:
-    /*  Represents the number of M & C NOT on the GOAL side of the river
-        and what side the boat is on. state[2] = 1 means the boat is 
-        on the wrong side. */
+    // Represents the number of M & C NOT on the GOAL side of the river
+    // and what side the boat is on. state[2] = 1 means the boat is 
+    // on the wrong side.
     vector<int> state;
+    // DFS is more efficient with a deque instead of a vector. 
+    // This keeps the less ambitious moves from being tried first
+    deque<vector<int> > listOfTravelOptions = initializeListOfTravelOptions();
 
-    vector<int> travelOption1 = {2,0,1};
-    vector<int> travelOption2 = {0,2,1};
-    vector<int> travelOption3 = {1,1,1};
-    vector<int> travelOption4 = {1,0,1};
-    vector<int> travelOption5 = {0,1,1};
+    deque<vector<int>> initializeListOfTravelOptions(){
+        deque<vector<int>> tempDeque;
+        vector<int> temp1(3);
+        vector<int> temp2(3);
+        bool oddDivision = 0;
+        int iterateTill = 0;
 
+        
+        // For each capacity of boat, starting at the given capacity and decreasing by one
+        for (int i = problemSpecMCP[2]; i >= 1; i-- ){
+                    //cout << "i = " << i << endl;
+            oddDivision = i%2;
+                    //cout << "oddDivision = " << oddDivision << ".......1 = Yes" << endl;
+            // see if the boat capacity is odd
+            if (oddDivision){
+                // if so, add one to half that number
+                iterateTill = i/2 + 1; 
+            }
+            else{
+                iterateTill = i/2;
+            }
+                    //cout << "iterateTill = " << iterateTill << endl;
 
-    int stepCost(int move){
-        return 1;
+            // use the number generated in the division above for the limit of j
+            // this keeps this boat capacity from intruding on the moves that will be generated 
+            // by the next boat capacity
+            for (int j = i; j >= iterateTill; j--){
+                        // cout << "j = " << j << endl;
+                        // cout << "i-j = " << i-j << endl;
+
+                // if the two numbers are the same, only put that travel option in once
+                if (j == i-j)
+                {
+                    temp1 = {j,i-j,1};
+                    tempDeque.push_front(temp1);
+                            // cout << "temp1: < ";
+                            // for (int k = 0; k < temp1.size(); k++){
+                                // cout << temp1[k] << " , ";
+                            // }
+                            // cout << " >" << endl;
+
+                // if the two numbers are different, you need to make two travel options out of them
+                }else{
+                    temp1 = {j,i-j,1};
+                    temp2 = {i-j,j,1};
+                    tempDeque.push_front(temp1);
+                    tempDeque.push_front(temp2);
+                            // cout << "temp1: < ";
+                            // for (int k = 0; k < temp1.size(); k++){
+                            //     cout << temp1[k] << " , ";
+                            // }
+                            // cout << " >" << endl;
+                            // cout << "temp2: < ";
+                            // for (int k = 0; k < temp2.size(); k++){
+                            //     cout << temp2[k] << " , ";
+                            // }
+                            // cout << " >" << endl;
+                }
+            }
+        }
+
+        // Need to make sure listOfTravelOptions has a size associated with it
+        // Just filling it does not give it a size
+
+                // for(int i = 0; i < listOfTravelOptions.size(); i++){
+                //     cout << "listOfTravelOptions [" << i << "] : ";
+                //     for (int j = 0; j < listOfTravelOptions[i].size(); j++)
+                //         cout << listOfTravelOptions[i][j] << " , ";
+                //     cout << endl;
+                // }
+                // cout << endl << endl;
+
+        return tempDeque;
     }
-
-    // compute size of listOfTravelOptions
-    // int travelOptionCount = 0;
-    // for (int i = problemSpecMCP[2]; i > 0; i++){
-    //     travelOptionCount += ++i;
-    //     cout << "sum: " << travelOptionCount << endl;
-    // }
-
-    vector<vector<int> > listOfTravelOptions={travelOption1, travelOption2, travelOption3, travelOption4, travelOption5};
 
     NodeMCP(){}
 
     NodeMCP(vector<int> state_ ):state(state_){
-        cout << "In constructor" << endl;
         HeuristicValue = numberOnStartSideHeuristic();
-        
-
-//        vector<int> temp1(3);
-//        vector<int> temp2(3);
-//        int travelOptionCount = 0;
-//        int tempVal =0;
-//        int evenDivision = 0;
-//
-//        for (int i = problemSpecMCP[2]; i > 0; i--){
-//            tempVal = i;
-//            travelOptionCount += ++tempVal;
-//            cout << "travelOptionCount: " << travelOptionCount << endl;
-//        }
-//
-//
-//
-//        for (int i = problemSpecMCP[2]; i >= 1; i-- ){
-//            // cout << "i = " << i << endl;
-//            evenDivision =
-//            for (int j = i; j >= i/2; j--){
-//                // cout << "j = " << j << endl;
-//                if (j == i-j)
-//                {
-//                    temp1 = {j,i-j,1};
-//                    listOfTravelOptions.push_back(temp1);
-//                    // cout << "temp1: < ";
-//                    // for (int k = 0; k < temp1.size(); k++){
-//                    //     cout << temp1[k] << " , ";
-//                    // }
-//                    // cout << " >" << endl;
-//                }else{
-//                    temp1 = {j,i-j,1};
-//                    temp2 = {i-j,j,1};
-//                    listOfTravelOptions.push_back(temp1);
-//                    listOfTravelOptions.push_back(temp2);
-//                    // cout << "temp1: < ";
-//                    // for (int k = 0; k < temp1.size(); k++){
-//                    //     cout << temp1[k] << " , ";
-//                    // }
-//                    // cout << " >" << endl;
-//                    // cout << "temp2: < ";
-//                    // for (int k = 0; k < temp2.size(); k++){
-//                    //     cout << temp2[k] << " , ";
-//                    // }
-//                    // cout << " >" << endl;
-//                }
-//            }
-//        }
-//        // Need to make sure listOfTravelOptions has a size associated with it
-//        // Just filling it does not give it a size
-//        listOfTravelOptions.resize(travelOptionCount);
-//
-//        for(int i = 0; i < listOfTravelOptions.size(); i++){
-//            cout << "listOfTravelOptions [" << i << "] : ";
-//            for (int j = 0; j < listOfTravelOptions[i].size(); j++)
-//                cout << listOfTravelOptions[i][j] << " , ";
-//            cout << endl;
-//        }
-//        cout << endl << endl;
     }
 
 
@@ -122,6 +120,10 @@ public:
         return true;
     }
 
+    int stepCost(int move){
+        return 1;
+    }
+
     int numberOnStartSideHeuristic() {
         // trip means to goal side and back
         int trips = 0;
@@ -135,7 +137,7 @@ public:
         // calculate difference from this state to goal state
         for (int i = 0; i < testState.size(); i++){
             testState[i] -= goalStateMCP[i];
-  //          cout << "testState[" << i << "] :" << testState[i];
+           // cout << "testState[" << i << "] :" << testState[i];
         }
 
         // Count number of people on the initial side
@@ -148,7 +150,7 @@ public:
         }
         // while it is not after the last trip
         while (numOnInitialSide != 0){
-//            cout << "numOnInitialSide:" << numOnInitialSide << endl;
+           // cout << "numOnInitialSide:" << numOnInitialSide << endl;
             if(numOnInitialSide <= problemSpecMCP[2]) {
                 numOnInitialSide = 0;
                 hCost++;
@@ -157,11 +159,11 @@ public:
                 trips++;
             }
         }
-//        cout << "trips:" << trips << endl;
+       // cout << "trips:" << trips << endl;
         trips *=2;
-  //      cout << "trips *2:" << trips << endl;
+       // cout << "trips *2:" << trips << endl;
         hCost += trips;
-    //    cout << "hCost:" << hCost << endl;
+       // cout << "hCost:" << hCost << endl;
 
 
         return hCost;
