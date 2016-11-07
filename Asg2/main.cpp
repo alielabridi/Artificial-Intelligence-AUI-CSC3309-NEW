@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     int pegs_shape;
     int n_nodes_to_expand = 0;
     int depth_cutoff = 0;
-    int size;
+    int size = 0;
     NodePegs initialNodePegs;
     NodeMCP initialNodeMCP;
 

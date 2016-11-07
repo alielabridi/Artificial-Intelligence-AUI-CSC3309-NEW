@@ -28,14 +28,82 @@ public:
         return 1;
     }
 
-    vector<vector<int> > listOfTravelOptions = 
-    {travelOption1, travelOption2, travelOption3, travelOption4, travelOption5};
+    // compute size of listOfTravelOptions
+    // int travelOptionCount = 0;
+    // for (int i = problemSpecMCP[2]; i > 0; i++){
+    //     travelOptionCount += ++i;
+    //     cout << "sum: " << travelOptionCount << endl;
+    // }
+
+    vector<vector<int> > listOfTravelOptions;
+
+    //{travelOption1, travelOption2, travelOption3, travelOption4, travelOption5};
 
     NodeMCP(){}
 
     NodeMCP(vector<int> state_ ):state(state_){
+        cout << "In constructor" << endl;
         HeuristicValue = numberOnStartSideHeuristic();
-    }    // Change to set the heuristic cost
+        
+
+        vector<int> temp1(3);
+        vector<int> temp2(3);
+        int travelOptionCount = 0;
+        int tempVal =0;
+        int evenDivision = 0;
+
+        for (int i = problemSpecMCP[2]; i > 0; i--){
+            tempVal = i;
+            travelOptionCount += ++tempVal;
+            cout << "travelOptionCount: " << travelOptionCount << endl;
+        }
+
+        
+
+        for (int i = problemSpecMCP[2]; i >= 1; i-- ){
+            // cout << "i = " << i << endl;
+            evenDivision = 
+            for (int j = i; j >= i/2; j--){
+                // cout << "j = " << j << endl;
+                if (j == i-j)
+                {
+                    temp1 = {j,i-j,1};
+                    listOfTravelOptions.push_back(temp1);
+                    // cout << "temp1: < ";
+                    // for (int k = 0; k < temp1.size(); k++){
+                    //     cout << temp1[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
+                }else{
+                    temp1 = {j,i-j,1};
+                    temp2 = {i-j,j,1};
+                    listOfTravelOptions.push_back(temp1);
+                    listOfTravelOptions.push_back(temp2);
+                    // cout << "temp1: < ";
+                    // for (int k = 0; k < temp1.size(); k++){
+                    //     cout << temp1[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
+                    // cout << "temp2: < ";
+                    // for (int k = 0; k < temp2.size(); k++){
+                    //     cout << temp2[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
+                }
+            }
+        }
+        // Need to make sure listOfTravelOptions has a size associated with it
+        // Just filling it does not give it a size
+        listOfTravelOptions.resize(travelOptionCount);
+
+        for(int i = 0; i < listOfTravelOptions.size(); i++){
+            cout << "listOfTravelOptions [" << i << "] : ";
+            for (int j = 0; j < listOfTravelOptions[i].size(); j++)
+                cout << listOfTravelOptions[i][j] << " , ";
+            cout << endl;
+        }
+        cout << endl << endl;
+    }
 
 
     bool equals (Node* node){
@@ -58,7 +126,6 @@ public:
 
     int numberOnStartSideHeuristic() {
         int hCost = 0;
-        bool boatOnStartSide;
         for (int i = 0; i < state.size() - 1; i++){
             hCost += state[i];
         }
