@@ -21,7 +21,7 @@ public:
 struct AStarComparator{
 public:
     bool operator()(const Node* lhs, const Node* rhs) const{
-        return ((lhs->HeuristicValue+lhs->pathcode) < (rhs->HeuristicValue+rhs->pathcode));
+        return ((lhs->HeuristicValue+lhs->pathcost) < (rhs->HeuristicValue+rhs->pathcost));
     }
 };
 
@@ -106,8 +106,10 @@ public:
             for (Node* successor: successors) {
                 /*check that the sucessor is not in the frontier and explored set*/
 
-                if(!exploredSetBFS.exists(successor))
+                if(!exploredSetBFS.exists(successor)){
                     frontier.push(successor);
+                    successor->printState();
+                }
 
             }
 
@@ -117,7 +119,7 @@ public:
         cout << "failure to find the solution" << endl;
         solution:
         int steps = 0;
-        cout << "path cost to reach solution " << node->pathcode << endl;
+        cout << "path cost to reach solution " << node->pathcost << endl;
         while(node != NULL){
             node->printState();
             node = node->prev;

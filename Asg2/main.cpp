@@ -13,10 +13,8 @@
 
 using namespace std;
 
-
-
 int main(int argc, char *argv[]) {
-    if (argc != 5){
+    if (argc != 4){
         cout << "one of the args is missing" << endl;
         return 0;
 
@@ -134,19 +132,11 @@ int main(int argc, char *argv[]) {
             goalStateStream >> goalStateMCP[i];
         }
 
-        initialStateStream.close();
-        goalStateStream.close();
-        initialStateMCP = problemSpecMCP;
-        initialStateMCP[2] = 1;
-        initialNodeMCP = NodeMCP(initialStateMCP);
-
-        search.DFS(&initialNodeMCP);
-
         if (VERBOSE) {
             /*print the content of the goal state and initial state*/
             cout << "Content of the initialState pegs" << endl;
             for (int i = 0; i < 3; ++i) {
-                cout << initialStateMCP[i] << " ";
+                cout << problemSpecMCP[i] << " ";
                 cout << endl;
             }
             cout << "Content of the goalState pegs" << endl;
@@ -158,6 +148,13 @@ int main(int argc, char *argv[]) {
         }
         // END OF VERBOSE
 
+        initialStateStream.close();
+        goalStateStream.close();
+        initialStateMCP = problemSpecMCP;
+        initialStateMCP[2] = 1;
+        initialNodeMCP = NodeMCP(initialStateMCP);
+
+        search.DFS(&initialNodeMCP);
     }
 
 
@@ -166,10 +163,5 @@ int main(int argc, char *argv[]) {
 
     cout << "the elapsed time to solve the problem is: " << elapsed_secs << " seconds" << endl;
 
-
-
-/*    initialStateFile.close();
-    goalStateFile.close();
-    heuristicFile.close();*/
     return 0;
 }

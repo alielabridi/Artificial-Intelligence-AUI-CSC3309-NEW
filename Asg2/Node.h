@@ -17,7 +17,7 @@ class Node {
     /*prev next */
 public:
     Node *prev = NULL;
-    int pathcode = 0;
+    int pathcost = 0;
     int HeuristicValue =0; /*based on the total number of moves possible in a given state*/
 
     virtual bool equals(Node* node)=0;

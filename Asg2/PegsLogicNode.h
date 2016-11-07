@@ -63,8 +63,8 @@ public:
         /*returns the step cost for every move
          * 1 => down
          * 2 =>right
-         * 2 => left
-         * 3 => up
+         * 3 => left
+         * 4 => up
          * */
         switch(move){
             case 1:
@@ -127,7 +127,7 @@ public:
                         nodeDown->state[i + 2][j] = '0';
                         nodeDown->state[i][j] = '1';
                         nodeDown->prev = this;
-                        nodeDown->pathcode = pathcode + stepCost(1);
+                        nodeDown->pathcost = pathcost + stepCost(1);
                         successorSet.push_back(nodeDown);
                     }
 
@@ -138,7 +138,7 @@ public:
                         nodeRight->state[i][j + 2] = '0';
                         nodeRight->state[i][j] = '1';
                         nodeRight->prev = this;
-                        nodeRight->pathcode = pathcode + stepCost(2);
+                        nodeRight->pathcost = pathcost + stepCost(2);
                         successorSet.push_back(nodeRight);
                     }
                     /*check possibility to move blank left*/
@@ -148,7 +148,7 @@ public:
                         nodeLeft->state[i][j - 2] = '0';
                         nodeLeft->state[i][j] = '1';
                         nodeLeft->prev = this;
-                        nodeLeft->pathcode = pathcode +  stepCost(3);
+                        nodeLeft->pathcost = pathcost +  stepCost(3);
                         successorSet.push_back(nodeLeft);
                     }
                     /*check possibility to move blank up*/
@@ -158,7 +158,7 @@ public:
                         nodeUp->state[i - 2][j] = '0';
                         nodeUp->state[i][j] = '1';
                         nodeUp->prev = this;
-                        nodeUp->pathcode = pathcode +  stepCost(4);
+                        nodeUp->pathcost = pathcost +  stepCost(4);
                         successorSet.push_back(nodeUp);
                     }
 
@@ -218,7 +218,7 @@ public:
                         nodeDown->state[i + 2][j] = '0';
                         nodeDown->state[i][j] = '1';
                         nodeDown->prev = this;
-                        nodeDown->pathcode = pathcode + stepCost(1);
+                        nodeDown->pathcost = pathcost + stepCost(1);
                         successorSet.push_back(nodeDown);
                     }
 
@@ -229,7 +229,7 @@ public:
                         nodeRight->state[i][j + 2] = '0';
                         nodeRight->state[i][j] = '1';
                         nodeRight->prev = this;
-                        nodeRight->pathcode = pathcode + stepCost(2);
+                        nodeRight->pathcost = pathcost + stepCost(2);
                         successorSet.push_back(nodeRight);
                     }
                     /*check possibility to move blank left*/
@@ -239,7 +239,7 @@ public:
                         nodeLeft->state[i][j - 2] = '0';
                         nodeLeft->state[i][j] = '1';
                         nodeLeft->prev = this;
-                        nodeLeft->pathcode = pathcode +  stepCost(3);
+                        nodeLeft->pathcost = pathcost +  stepCost(3);
                         successorSet.push_back(nodeLeft);
                     }
                     /*check possibility to move blank up*/
@@ -249,7 +249,7 @@ public:
                         nodeUp->state[i - 2][j] = '0';
                         nodeUp->state[i][j] = '1';
                         nodeUp->prev = this;
-                        nodeUp->pathcode = pathcode +  stepCost(4);
+                        nodeUp->pathcost = pathcost +  stepCost(4);
                         successorSet.push_back(nodeUp);
                     }
                     /*check the possibility to move blank Up and Right */
@@ -259,7 +259,7 @@ public:
                         nodeUpRight->state[i - 2][j+2] = '0';
                         nodeUpRight->state[i][j] = '1';
                         nodeUpRight->prev = this;
-                        nodeUpRight->pathcode = pathcode +  stepCost(5);
+                        nodeUpRight->pathcost = pathcost +  stepCost(5);
                         successorSet.push_back(nodeUpRight);
                     }
                     /*check the possibility to move blank Down and Left */
@@ -269,7 +269,7 @@ public:
                         nodeDownLeft->state[i + 2][j-2] = '0';
                         nodeDownLeft->state[i][j] = '1';
                         nodeDownLeft->prev = this;
-                        nodeDownLeft->pathcode = pathcode + stepCost(6);
+                        nodeDownLeft->pathcost = pathcost + stepCost(6);
                         successorSet.push_back(nodeDownLeft);
                     }
                     /*Down Right and Up Left are not allowed in this puzzle*/
