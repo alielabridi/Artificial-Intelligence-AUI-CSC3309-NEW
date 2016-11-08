@@ -169,6 +169,7 @@ public:
         return hCost;
     }
 
+    // TODO: add pathcost funtionality to MCP
     vector <Node* > successorFunction(){
         vector <Node* > successorSet;
         cout << "Created Successor Set" << endl;
