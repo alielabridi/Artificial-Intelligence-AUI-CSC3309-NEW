@@ -6,6 +6,7 @@
 #define ASG2_PEGSLOGICNODE_H
 
 #include <iostream>
+#include <stack>
 #include "Node.h"
 using namespace std;
 
@@ -27,7 +28,19 @@ public:
         HeuristicValue = -totalPossibleMovesHeuristic();
     }
 
-
+    void printSolution(){
+        /*printing in reverse order to go from initial state to goal state*/
+        stack <Node*> reversePrinting;
+        Node *tempAddress = this;
+        while(tempAddress->prev != NULL){
+            reversePrinting.push(tempAddress);
+            tempAddress = tempAddress->prev;
+        }
+        for (int i = 0; i < reversePrinting.size(); ++i) {
+            reversePrinting.top()->printState();
+            reversePrinting.pop();
+        }
+    }
 
 
     int totalPossibleMovesHeuristic(){

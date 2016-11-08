@@ -7,17 +7,17 @@
 
 #include <iostream>
 #include <vector>
-#include <deque>
 #include "Node.h"
 using namespace std;
 
 class NodeMCP : public Node {
 public:
-    /*  Represents the number of M & C NOT on the GOAL side of the river
-        and what side the boat is on. state[2] = 1 means the boat is 
-        on the wrong side. */
+    // Represents the number of M & C NOT on the GOAL side of the river
+    // and what side the boat is on. state[2] = 1 means the boat is
+    // on the wrong side.
     vector<int> state;
-    // More efficient with deque - order of 
+    // DFS is more efficient with a deque instead of a vector.
+    // This keeps the less ambitious moves from being tried first
     deque<vector<int> > listOfTravelOptions = initializeListOfTravelOptions();
 
     deque<vector<int>> initializeListOfTravelOptions(){
@@ -27,56 +27,56 @@ public:
         bool oddDivision = 0;
         int iterateTill = 0;
 
-        
+
         // For each capacity of boat, starting at the given capacity and decreasing by one
         for (int i = problemSpecMCP[2]; i >= 1; i-- ){
-                    //cout << "i = " << i << endl;
+            //cout << "i = " << i << endl;
             oddDivision = i%2;
-                    //cout << "oddDivision = " << oddDivision << ".......1 = Yes" << endl;
+            //cout << "oddDivision = " << oddDivision << ".......1 = Yes" << endl;
             // see if the boat capacity is odd
             if (oddDivision){
                 // if so, add one to half that number
-                iterateTill = i/2 + 1; 
+                iterateTill = i/2 + 1;
             }
             else{
                 iterateTill = i/2;
             }
-                    //cout << "iterateTill = " << iterateTill << endl;
+            //cout << "iterateTill = " << iterateTill << endl;
 
             // use the number generated in the division above for the limit of j
-            // this keeps this boat capacity from intruding on the moves that will be generated 
+            // this keeps this boat capacity from intruding on the moves that will be generated
             // by the next boat capacity
             for (int j = i; j >= iterateTill; j--){
-                        // cout << "j = " << j << endl;
-                        // cout << "i-j = " << i-j << endl;
+                // cout << "j = " << j << endl;
+                // cout << "i-j = " << i-j << endl;
 
                 // if the two numbers are the same, only put that travel option in once
                 if (j == i-j)
                 {
                     temp1 = {j,i-j,1};
                     tempDeque.push_front(temp1);
-                            // cout << "temp1: < ";
-                            // for (int k = 0; k < temp1.size(); k++){
-                                // cout << temp1[k] << " , ";
-                            // }
-                            // cout << " >" << endl;
+                    // cout << "temp1: < ";
+                    // for (int k = 0; k < temp1.size(); k++){
+                    // cout << temp1[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
 
-                // if the two numbers are different, you need to make two travel options out of them
+                    // if the two numbers are different, you need to make two travel options out of them
                 }else{
                     temp1 = {j,i-j,1};
                     temp2 = {i-j,j,1};
                     tempDeque.push_front(temp1);
                     tempDeque.push_front(temp2);
-                            // cout << "temp1: < ";
-                            // for (int k = 0; k < temp1.size(); k++){
-                            //     cout << temp1[k] << " , ";
-                            // }
-                            // cout << " >" << endl;
-                            // cout << "temp2: < ";
-                            // for (int k = 0; k < temp2.size(); k++){
-                            //     cout << temp2[k] << " , ";
-                            // }
-                            // cout << " >" << endl;
+                    // cout << "temp1: < ";
+                    // for (int k = 0; k < temp1.size(); k++){
+                    //     cout << temp1[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
+                    // cout << "temp2: < ";
+                    // for (int k = 0; k < temp2.size(); k++){
+                    //     cout << temp2[k] << " , ";
+                    // }
+                    // cout << " >" << endl;
                 }
             }
         }
@@ -84,17 +84,16 @@ public:
         // Need to make sure listOfTravelOptions has a size associated with it
         // Just filling it does not give it a size
 
-                // for(int i = 0; i < listOfTravelOptions.size(); i++){
-                //     cout << "listOfTravelOptions [" << i << "] : ";
-                //     for (int j = 0; j < listOfTravelOptions[i].size(); j++)
-                //         cout << listOfTravelOptions[i][j] << " , ";
-                //     cout << endl;
-                // }
-                // cout << endl << endl;
+        // for(int i = 0; i < listOfTravelOptions.size(); i++){
+        //     cout << "listOfTravelOptions [" << i << "] : ";
+        //     for (int j = 0; j < listOfTravelOptions[i].size(); j++)
+        //         cout << listOfTravelOptions[i][j] << " , ";
+        //     cout << endl;
+        // }
+        // cout << endl << endl;
 
         return tempDeque;
     }
-
 
     NodeMCP(){}
 
@@ -102,12 +101,9 @@ public:
         HeuristicValue = numberOnStartSideHeuristic();
     }
 
-    int stepCost(int move){
-        return 1;
-    }
 
     bool equals (Node* node){
-            return (state == dynamic_cast<NodeMCP*>(node)->state);
+        return (state == dynamic_cast<NodeMCP*>(node)->state);
     }
 
     void printState(){
@@ -124,20 +120,51 @@ public:
         return true;
     }
 
+    int stepCost(int move){
+        return 1;
+    }
+
     int numberOnStartSideHeuristic() {
+        // trip means to goal side and back
+        int trips = 0;
         int hCost = 0;
-        for (int i = 0; i < state.size() - 1; i++){
-            hCost += state[i];
+        int numOnInitialSide = 0;
+        int peopleMovedToGoalPerTrip = problemSpecMCP[2] - 1;
+        vector<int> testState = state;
+
+        // If boat is on the initial side
+
+        // calculate difference from this state to goal state
+        for (int i = 0; i < testState.size(); i++){
+            testState[i] -= goalStateMCP[i];
+            // cout << "testState[" << i << "] :" << testState[i];
         }
 
-        // if boat on start side, the cost is less
-        // cost will be around double the number of people on the start side
-        if(state[2] == 1){
-            hCost *= 2;
-        } else {
-            hCost *= 2;
+        // Count number of people on the initial side
+        for (int j = 0; j < 2; ++j)
+            numOnInitialSide += testState[j];
+
+        if(state[2] == 0){
+            numOnInitialSide++;
             hCost++;
         }
+        // while it is not after the last trip
+        while (numOnInitialSide != 0){
+            // cout << "numOnInitialSide:" << numOnInitialSide << endl;
+            if(numOnInitialSide <= problemSpecMCP[2]) {
+                numOnInitialSide = 0;
+                hCost++;
+            }else {
+                numOnInitialSide = numOnInitialSide - peopleMovedToGoalPerTrip;
+                trips++;
+            }
+        }
+        // cout << "trips:" << trips << endl;
+        trips *=2;
+        // cout << "trips *2:" << trips << endl;
+        hCost += trips;
+        // cout << "hCost:" << hCost << endl;
+
 
         return hCost;
     }
@@ -156,7 +183,7 @@ public:
         {
             // Next states will be generated from vector addition
             // Move boat, n missionaries, and n cannibal to the non goal side of river
-            
+
             for (int i = 0; i < listOfTravelOptions.size(); i++)
             {
                 vector<int> temp = {0, 0, 0};
@@ -164,7 +191,7 @@ public:
                 // Attempt to move to the non goal side of the river
                 for (int j = 0; j < state.size(); j++)
                     temp[j] = listOfTravelOptions[i][j] + state[j];
-                
+
                 // Check to see if the option was valid
                 // Check to see if the option was in bounds
                 if(temp[0] >= 0 && temp[0] <= problemSpecMCP[0] && temp[1] >= 0 && temp[1] <= problemSpecMCP[1] ){
@@ -197,7 +224,7 @@ public:
                 }
             }
         }
-        // Boat is on the NON-goal side of the river
+            // Boat is on the NON-goal side of the river
         else if(state[2] == 1)
         {
             // Next states will be generated by vector subtraction
@@ -208,7 +235,7 @@ public:
                 // Attempt to move to the goal side of the river
                 for (int j = 0; j < state.size(); j++)
                     temp[j] = state[j] - listOfTravelOptions.at(i).at(j);
-                
+
                 // Check to see if the option was in bounds
                 if(temp[0] >= 0 && temp[0] <= problemSpecMCP[0] && temp[1] >= 0 && temp[1] <= problemSpecMCP[1]){
                     // No missionaries on the Goal Side

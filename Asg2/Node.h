@@ -6,7 +6,9 @@
 #define ASG2_NODE_H
 
 #include <vector>
+#include <stack>
 using namespace std;
+
 /*declare goal state global as to be accesible to everyone*/
 vector<vector<char> > goalStatePegs(9,vector<char>(9));
 vector<int> goalStateMCP(3);
@@ -25,6 +27,22 @@ public:
     virtual bool goalStateTest()=0;
     virtual vector<Node*> successorFunction()=0;
     virtual int stepCost(int move)=0;
+
+    void printSolution(){
+        /*printing in reverse order to go from initial state to goal state*/
+        stack <Node*> reversePrinting;
+        Node *tempAddress = this;
+        while(tempAddress != NULL){
+            reversePrinting.push(tempAddress);
+            tempAddress = tempAddress->prev;
+        }
+        cout << "the solution is:"<<endl;
+        for (int i = 0; i < reversePrinting.size(); ++i) {
+            reversePrinting.top()->printState();
+            reversePrinting.pop();
+        }
+    }
+
 };
 
 #endif //ASG2_NODE_H

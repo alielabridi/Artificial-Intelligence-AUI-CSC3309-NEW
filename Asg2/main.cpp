@@ -135,15 +135,15 @@ int main(int argc, char *argv[]) {
         if (VERBOSE) {
             /*print the content of the goal state and initial state*/
             cout << "Content of the initialState pegs" << endl;
-            for (int i = 0; i < 3; ++i) {
+            for (int i = 0; i < 3; ++i)
                 cout << problemSpecMCP[i] << " ";
-                cout << endl;
-            }
+            cout << endl;
+
             cout << "Content of the goalState pegs" << endl;
-            for (int i = 0; i < 3; ++i) {
+            for (int i = 0; i < 3; ++i)
                 cout << goalStateMCP[i] << " ";
-                cout << endl;
-            }
+            cout << endl;
+
 
         }
         // END OF VERBOSE
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
         initialStateMCP[2] = 1;
         initialNodeMCP = NodeMCP(initialStateMCP);
 
-        search.DFS(&initialNodeMCP);
+        search.AStar(&initialNodeMCP, n_nodes_to_expand);
     }
 
 
