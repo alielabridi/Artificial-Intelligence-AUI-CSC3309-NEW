@@ -36,8 +36,9 @@ public:
             reversePrinting.push(tempAddress);
             tempAddress = tempAddress->prev;
         }
-        cout << "the solution is:"<<endl;
-        for (int i = 0; i < reversePrinting.size(); ++i) {
+        cout << "the solution is: "<<endl;
+        int count = reversePrinting.size();
+        for (int i = 0; i < count; ++i) {
             reversePrinting.top()->printState();
             reversePrinting.pop();
         }

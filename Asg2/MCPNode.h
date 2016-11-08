@@ -172,7 +172,7 @@ public:
     // TODO: add pathcost funtionality to MCP
     vector <Node* > successorFunction(){
         vector <Node* > successorSet;
-        cout << "Created Successor Set" << endl;
+        //cout << "Created Successor Set" << endl;
         /*  Test which side boat (state[2]) is on
             then either add or subtract
             (<1,0,1>, <2,0,1>, <0,1,1>, <0,2,1>, and <1,1,1>)

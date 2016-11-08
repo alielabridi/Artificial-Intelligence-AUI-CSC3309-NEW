@@ -185,7 +185,7 @@ public:
     void AStar(Node* initialState, int n_nodes_to_expand_to_ask) {
         if (initialState->goalStateTest()) {
             cout << "The number of nodes expanded is 0 and the # of loops detected is 0" << endl;
-            cout << "A solution found has been found";
+            cout << "A solution found has been found" << endl;
             initialState->printSolution();
             return;
         }
@@ -211,7 +211,7 @@ public:
             node->printState();
             cout << "the new expanded node-- END" << endl;
             if(node->goalStateTest()){
-                cout << "A solution found has been found";
+                cout << "A solution found has been found" << endl;
                 cout << "The number of nodes expanded is " << n_expension << "and the # of loops detected is " << loops_detected << endl;
                 node->printSolution();
                 return;
