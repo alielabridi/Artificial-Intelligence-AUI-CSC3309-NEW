@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
     int n_nodes_to_expand = 0;
     int depth_cutoff = 0;
     int size = 0;
-    NodePegs initialNodePegs;
     NodeMCP initialNodeMCP;
 
 
@@ -98,11 +97,6 @@ int main(int argc, char *argv[]) {
         initialStateStream.close();
         goalStateStream.close();
 
-        initialNodePegs = NodePegs(size,initialStatePegs);
-        search.Greedy(&initialNodePegs);
-
-        cout << "got here" << endl;
-
         if (VERBOSE) {
             /*print the content of the goal state and initial state*/
             cout << "Content of the initialState pegs" << endl;
@@ -125,6 +119,27 @@ int main(int argc, char *argv[]) {
         }
         // END OF VERBOSE
 
+        /*triangular shape*/
+        if(pegs_shape == 6){
+            PegsTriangleNode initialPegsTriangleNode = PegsTriangleNode(size,initialStatePegs);
+            if(strategy == "DFS")search.DFS(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "Astar")search.AStar(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "BFS")search.BFS(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "UCS")search.UCS(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "GBFS")search.Greedy(&initialPegsTriangleNode, n_nodes_to_expand);
+
+        }
+        else{
+            NodePegs initialNodePegs;
+            initialNodePegs = NodePegs(size,initialStatePegs);
+            if(strategy == "DFS")search.DFS(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "Astar")search.AStar(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "BFS")search.BFS(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "UCS")search.UCS(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "GBFS")search.Greedy(&initialNodePegs, n_nodes_to_expand);
+
+        }
+
     }
     else if(problem == "MCP"){
         for (int i = 0; i < 3; ++i){
@@ -143,8 +158,6 @@ int main(int argc, char *argv[]) {
             for (int i = 0; i < 3; ++i)
                 cout << goalStateMCP[i] << " ";
             cout << endl;
-
-
         }
         // END OF VERBOSE
 
@@ -153,8 +166,11 @@ int main(int argc, char *argv[]) {
         initialStateMCP = problemSpecMCP;
         initialStateMCP[2] = 1;
         initialNodeMCP = NodeMCP(initialStateMCP);
-
-        search.AStar(&initialNodeMCP, n_nodes_to_expand);
+        if(strategy == "DFS")search.DFS(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "Astar")search.AStar(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "BFS")search.BFS(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "UCS")search.UCS(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "GBFS")search.Greedy(&initialNodeMCP, n_nodes_to_expand);
     }
 
 
