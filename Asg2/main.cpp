@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
         if(pegs_shape == 6){
             PegsTriangleNode initialPegsTriangleNode = PegsTriangleNode(size,initialStatePegs);
             if(strategy == "DFS")search.DFS(&initialPegsTriangleNode, n_nodes_to_expand);
-            else if(strategy == "Astar")search.AStar(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "A*")search.AStar(&initialPegsTriangleNode, n_nodes_to_expand);
             else if(strategy == "BFS")search.BFS(&initialPegsTriangleNode, n_nodes_to_expand);
             else if(strategy == "UCS")search.UCS(&initialPegsTriangleNode, n_nodes_to_expand);
             else if(strategy == "GBFS")search.Greedy(&initialPegsTriangleNode, n_nodes_to_expand);
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
             NodePegs initialNodePegs;
             initialNodePegs = NodePegs(size,initialStatePegs);
             if(strategy == "DFS")search.DFS(&initialNodePegs, n_nodes_to_expand);
-            else if(strategy == "Astar")search.AStar(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "A*")search.AStar(&initialNodePegs, n_nodes_to_expand);
             else if(strategy == "BFS")search.BFS(&initialNodePegs, n_nodes_to_expand);
             else if(strategy == "UCS")search.UCS(&initialNodePegs, n_nodes_to_expand);
             else if(strategy == "GBFS")search.Greedy(&initialNodePegs, n_nodes_to_expand);
@@ -167,7 +167,7 @@ int main(int argc, char *argv[]) {
         initialStateMCP[2] = 1;
         initialNodeMCP = NodeMCP(initialStateMCP);
         if(strategy == "DFS")search.DFS(&initialNodeMCP, n_nodes_to_expand);
-        else if(strategy == "Astar")search.AStar(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "A*")search.AStar(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "BFS")search.BFS(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "UCS")search.UCS(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "GBFS")search.Greedy(&initialNodeMCP, n_nodes_to_expand);
