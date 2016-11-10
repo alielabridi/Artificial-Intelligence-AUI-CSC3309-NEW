@@ -111,8 +111,9 @@ public:
         cout << "State: < ";
         for (int i = 0; i < state.size(); i++)
             cout << state[i] << ",";
-        cout << ">    ";
-        cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
+        cout << ">    " << endl;
+        // if you want to print other values at the current state:
+        // cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
     }
 
 
