@@ -159,7 +159,10 @@ public:
         for (int j = 0; j < 2; ++j)
             numOnInitialSide += testState[j];
 
-        if(state[2] == 0){
+        // If the boat is on the goal side, and this is not the goal state
+        // Act like it is one state ahead, so the algorithm can be applied
+        // this algorithm only works if the boat is on the initial side
+        if(state[2] == 0 && !this->goalStateTest()){
             numOnInitialSide++;
             hCost++;
         }
@@ -215,7 +218,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
-                            newNode->pathcost = this->pathcost + stepCost(1);
+                            newNode->pathcost = pathcost + stepCost(1);
                             successorSet.push_back(newNode);
                         }
                     }

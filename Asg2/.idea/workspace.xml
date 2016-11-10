@@ -63,11 +63,10 @@
       <file leaf-file-name="MCPNode.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MCPNode.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="196" column="25" selection-start-line="196" selection-start-column="25" selection-end-line="196" selection-end-column="25" />
+            <state relative-caret-position="266">
+              <caret line="163" column="71" selection-start-line="163" selection-start-column="71" selection-end-line="163" selection-end-column="71" />
               <folding>
                 <element signature="e#736#3696#0" expanded="false" />
-                <element signature="e#4753#6117#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -414,12 +413,12 @@
       <workItem from="1478524508718" duration="6321000" />
       <workItem from="1478530848901" duration="741000" />
       <workItem from="1478531596723" duration="1862000" />
-      <workItem from="1478775665416" duration="2687000" />
+      <workItem from="1478775665416" duration="3138000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51591000" />
+    <option name="totallyTimeSpent" value="52042000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="746" extended-state="6" />
@@ -464,21 +463,6 @@
           <line>63</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/MCPNode.h</url>
-          <line>227</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/MCPNode.h</url>
-          <line>217</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/MCPNode.h</url>
-          <line>236</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="34" />
     </breakpoint-manager>
@@ -517,7 +501,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#736#3696#0" expanded="false" />
-            <element signature="e#4753#6117#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -856,14 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Node.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PegsLogicNode.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-82">
@@ -874,13 +849,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Node.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MCPNode.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="196" column="25" selection-start-line="196" selection-start-column="25" selection-end-line="196" selection-end-column="25" />
+        <state relative-caret-position="266">
+          <caret line="163" column="71" selection-start-line="163" selection-start-column="71" selection-end-line="163" selection-end-column="71" />
           <folding>
             <element signature="e#736#3696#0" expanded="false" />
-            <element signature="e#4753#6117#0" expanded="false" />
           </folding>
         </state>
       </provider>
