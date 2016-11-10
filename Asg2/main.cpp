@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    //char initialStatePegs4[7][7];
     vector<vector<char> > initialStatePegs(9,vector<char>(9));
     vector<int> initialStateMCP(3);
 
@@ -178,7 +177,7 @@ int main(int argc, char *argv[]) {
         initialStateStream.close();
         goalStateStream.close();
         initialStateMCP = problemSpecMCP;
-        initialStateMCP[2] = 1;
+        initialStateMCP[2] = 1;     // Boat has to start on initial side
         initialNodeMCP = NodeMCP(initialStateMCP);
         if(strategy == "DFS")search.DFS(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "A*")search.AStar(&initialNodeMCP, n_nodes_to_expand);
