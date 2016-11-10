@@ -141,6 +141,7 @@ int main(int argc, char *argv[]) {
         }
 
     }
+        // TODO make sure that M>C 
     else if(problem == "MCP"){
         for (int i = 0; i < 3; ++i){
             initialStateStream >> problemSpecMCP[i];

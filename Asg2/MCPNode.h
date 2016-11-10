@@ -16,7 +16,7 @@ public:
     NodeMCP(){}
 
     NodeMCP(vector<int> state_ ):state(state_){
-        HeuristicValue = numberOnStartSideHeuristic();
+        HeuristicValue = numberOnStartSideWithBoatHeuristic();
     }
 
     // Represents the number of M & C NOT on the GOAL side of the river
@@ -141,7 +141,11 @@ public:
         }
     }
 
-    int numberOnStartSideHeuristic() {
+    int numberOnStartSideHeuristic(){
+        return state[0] + state[1];
+    }
+
+    int numberOnStartSideWithBoatHeuristic() {
         // trip means to goal side and back
         int trips = 0;
         int hCost = 0;
