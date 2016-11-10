@@ -228,7 +228,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
-                            newNode->pathcost = this->pathcost + stepCost(2);
+                            newNode->pathcost = pathcost + stepCost(2);
                             successorSet.push_back(newNode);
                         }
                     }else {
@@ -237,7 +237,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP *newNode = new NodeMCP(temp);
                             newNode->prev = this;
-                            newNode->pathcost = this->pathcost + stepCost(3);
+                            newNode->pathcost = pathcost + stepCost(3);
                             successorSet.push_back(newNode);
                         }
                     }
@@ -264,6 +264,8 @@ public:
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = pathcost + stepCost(1);
+
                             successorSet.push_back(newNode);
                         }
                     }
@@ -273,6 +275,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = pathcost + stepCost(2);
                             successorSet.push_back(newNode);
                         }
                     }else {
@@ -281,6 +284,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP *newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = pathcost + stepCost(3);
                             successorSet.push_back(newNode);
                         }
                     }
