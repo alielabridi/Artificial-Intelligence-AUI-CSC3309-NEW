@@ -258,19 +258,18 @@ public:
 
                 // Check to see if the option was in bounds
                 if(temp[0] >= 0 && temp[0] <= problemSpecMCP[0] && temp[1] >= 0 && temp[1] <= problemSpecMCP[1]){
-                    // No missionaries on the Goal Side
                     if (temp[0] == 3){
+                        // No missionaries on the Goal Side
                         if(temp[0] >= temp[1]){
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
                             newNode->pathcost = pathcost + stepCost(1);
-
                             successorSet.push_back(newNode);
                         }
                     }
-                        // No missionaries on the initial side
                     else if (temp[0] == 0){
+                        // No missionaries on the initial side
                         if(problemSpecMCP[0] - temp[0] >= problemSpecMCP[1] - temp[1]){
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
