@@ -113,7 +113,7 @@ public:
             cout << state[i] << ",";
         cout << ">    " << endl;
         // if you want to print other values at the current state:
-         cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
+        cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
     }
 
 

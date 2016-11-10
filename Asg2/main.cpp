@@ -26,9 +26,9 @@ int main(int argc, char *argv[]) {
 
 
 
-    string problem;
-    string strategy;
-    int pegs_shape;
+    string problem = "-1";
+    string strategy = "-1";
+    int pegs_shape = -1;
     int n_nodes_to_expand = 0;
     int depth_cutoff = 0;
     int size = 0;
@@ -147,11 +147,18 @@ int main(int argc, char *argv[]) {
         }
 
     }
-        // TODO make sure that M>C
     else if(problem == "MCP"){
         for (int i = 0; i < 3; ++i){
             initialStateStream >> problemSpecMCP[i];
             goalStateStream >> goalStateMCP[i];
+        }
+
+        if(problemSpecMCP[1] > problemSpecMCP[0]){
+            cout << "Initial number of Missionaries : "<< problemSpecMCP[0]
+                 << " cannot be less than the initial number of Cannibals: "
+                 << problemSpecMCP[1] << endl;
+            cout << "Please choose another problem specifiaction file." << endl;
+            return 0;
         }
 
         if (VERBOSE) {
