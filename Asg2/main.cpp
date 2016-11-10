@@ -83,7 +83,10 @@ int main(int argc, char *argv[]) {
 
 
     if (problem == "Pegs") {
-        if(pegs_shape == 4) size = 7;
+        if(pegs_shape == 4 || pegs_shape == 1) size = 7;
+        else if(pegs_shape == 2 || pegs_shape == 5) size = 9;
+        else if(pegs_shape == 3) size = 8;
+        else if(pegs_shape == 6) size = 5;
         /*inputting the initialstate*/
 
         for (int i = 0; i < size; ++i)
