@@ -93,6 +93,7 @@ public:
     }
     void printState() {
         cout << "---------START--------" << endl;
+        cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 cout << state[i][j] << " ";
@@ -177,7 +178,15 @@ public:
 class PegsTriangleNode: public NodePegs{
 public:
 
-    PegsTriangleNode(int size, vector< vector<char> > state_):NodePegs(size,state_){};
+    PegsTriangleNode(int size, vector< vector<char> > state_){
+        state = state_;
+        this->size = size;
+        /*we negate the value so to take the one with the least value because it describes
+        * the most appreciable one and we have a min heap for the greedy and A* problem*/
+        HeuristicValue = -totalPossibleMovesHeuristic();
+
+    };
+
     PegsTriangleNode(){};
     /*we only need to overload the successor function for the triangle*/
     int stepCost(int move){
@@ -282,6 +291,45 @@ public:
         }
 
         return successorSet;
+    }
+
+
+    int totalPossibleMovesHeuristic() {
+        int count = 0;
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                if (state[i][j] == '1') {
+
+                    /*check possibility to move pegs up*/
+                    if ((i + 2 < size) && state[i + 1][j] == '1' && state[i + 2][j] == '0') {
+                        count++;
+                    }
+
+                    /*check possibility to move peg left*/
+                    if ((j + 2 < size) && state[i][j + 1] == '1' && state[i][j + 2] == '0') {
+                        count++;
+                    }
+                    /*check possibility to move peg right*/
+                    if ((j - 2 >= 0) && state[i][j - 1] == '1' && state[i][j - 2] == '0') {
+                        count++;
+                    }
+                    /*check possibility to move peg down*/
+                    if ((i - 2 >= 0) && state[i - 1][j] == '1' && state[i - 2][j] == '0') {
+                        count++;
+                    }
+                    /*the two other possible moves that only possible in the triangle shape*/
+                    if ((i - 2 >= 0) && (j + 2 < size) && state[i - 1][j + 1] == '1' && state[i - 2][j + 2] == '0') {
+                        count++;
+                    }
+                    if ((i + 2 < size) && (j - 2 >= 0) && state[i + 1][j - 1] == '1' && state[i + 2][j - 2] == '1') {
+                        count++;
+                    }
+                }
+            }
+
+
+        }
+        return count;
     }
 
 };

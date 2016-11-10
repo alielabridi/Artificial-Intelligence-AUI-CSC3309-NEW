@@ -83,7 +83,10 @@ int main(int argc, char *argv[]) {
 
 
     if (problem == "Pegs") {
-        if(pegs_shape == 4) size = 7;
+        if(pegs_shape == 4 || pegs_shape == 1) size = 7;
+        else if(pegs_shape == 2 || pegs_shape == 5) size = 9;
+        else if(pegs_shape == 3) size = 8;
+        else if(pegs_shape == 6) size = 5;
         /*inputting the initialstate*/
 
         for (int i = 0; i < size; ++i)
@@ -127,6 +130,8 @@ int main(int argc, char *argv[]) {
             else if(strategy == "BFS")search.BFS(&initialPegsTriangleNode, n_nodes_to_expand);
             else if(strategy == "UCS")search.UCS(&initialPegsTriangleNode, n_nodes_to_expand);
             else if(strategy == "GBFS")search.Greedy(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "IDS")search.IDS(&initialPegsTriangleNode, n_nodes_to_expand);
+            else if(strategy == "DLS")search.DLS(&initialPegsTriangleNode, n_nodes_to_expand,depth_cutoff);
 
         }
         else{
@@ -137,7 +142,8 @@ int main(int argc, char *argv[]) {
             else if(strategy == "BFS")search.BFS(&initialNodePegs, n_nodes_to_expand);
             else if(strategy == "UCS")search.UCS(&initialNodePegs, n_nodes_to_expand);
             else if(strategy == "GBFS")search.Greedy(&initialNodePegs, n_nodes_to_expand);
-
+            else if(strategy == "IDS")search.IDS(&initialNodePegs, n_nodes_to_expand);
+            else if(strategy == "DLS")search.DLS(&initialNodePegs, n_nodes_to_expand,depth_cutoff);
         }
 
     }
@@ -172,6 +178,8 @@ int main(int argc, char *argv[]) {
         else if(strategy == "BFS")search.BFS(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "UCS")search.UCS(&initialNodeMCP, n_nodes_to_expand);
         else if(strategy == "GBFS")search.Greedy(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "IDS")search.IDS(&initialNodeMCP, n_nodes_to_expand);
+        else if(strategy == "DLS")search.DLS(&initialNodeMCP, n_nodes_to_expand,depth_cutoff);
     }
 
 

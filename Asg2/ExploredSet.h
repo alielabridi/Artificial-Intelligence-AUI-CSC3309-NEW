@@ -23,6 +23,9 @@ public:
     int size(){
         return Vec.size();
     }
+    void clear(){
+        Vec.clear();
+    }
 };
 
 #endif //ASG2_EXPLOREDSET_H
