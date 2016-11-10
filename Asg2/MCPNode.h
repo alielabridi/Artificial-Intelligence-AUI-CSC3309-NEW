@@ -12,6 +12,13 @@ using namespace std;
 
 class NodeMCP : public Node {
 public:
+
+    NodeMCP(){}
+
+    NodeMCP(vector<int> state_ ):state(state_){
+        HeuristicValue = numberOnStartSideHeuristic();
+    }
+
     // Represents the number of M & C NOT on the GOAL side of the river
     // and what side the boat is on. state[2] = 1 means the boat is
     // on the wrong side.
@@ -95,12 +102,6 @@ public:
         return tempDeque;
     }
 
-    NodeMCP(){}
-
-    NodeMCP(vector<int> state_ ):state(state_){
-        HeuristicValue = numberOnStartSideHeuristic();
-    }
-
 
     bool equals (Node* node){
         return (state == dynamic_cast<NodeMCP*>(node)->state);
@@ -110,8 +111,10 @@ public:
         cout << "State: < ";
         for (int i = 0; i < state.size(); i++)
             cout << state[i] << ",";
-        cout << ">" << endl;
+        cout << ">    ";
+        cout << "Heuristic value: " << HeuristicValue << "  |  Path Cost: " << pathcost << endl;
     }
+
 
     bool goalStateTest (){  // link back to main
         for (int i = 0; i < 3; i++)
@@ -121,7 +124,21 @@ public:
     }
 
     int stepCost(int move){
-        return 1;
+        /* returns the step cost for every move
+         * 1 => No missionaries on the Goal Side
+         * 2 => No missionaries on the initial side
+         * 3 => If #C do not outnumber #M on the Goal side AND the initial side
+         * */
+        switch(move) {
+            case 1:
+                return 1;
+            case 2:
+                return 1;
+            case 3:
+                return 1;
+            default:
+                return 0;
+        }
     }
 
     int numberOnStartSideHeuristic() {
@@ -131,8 +148,6 @@ public:
         int numOnInitialSide = 0;
         int peopleMovedToGoalPerTrip = problemSpecMCP[2] - 1;
         vector<int> testState = state;
-
-        // If boat is on the initial side
 
         // calculate difference from this state to goal state
         for (int i = 0; i < testState.size(); i++){
@@ -169,7 +184,6 @@ public:
         return hCost;
     }
 
-    // TODO: add pathcost funtionality to MCP
     vector <Node* > successorFunction(){
         vector <Node* > successorSet;
         //cout << "Created Successor Set" << endl;
@@ -193,24 +207,25 @@ public:
                 for (int j = 0; j < state.size(); j++)
                     temp[j] = listOfTravelOptions[i][j] + state[j];
 
-                // Check to see if the option was valid
                 // Check to see if the option was in bounds
                 if(temp[0] >= 0 && temp[0] <= problemSpecMCP[0] && temp[1] >= 0 && temp[1] <= problemSpecMCP[1] ){
-                    // No missionaries on the Goal Side
                     if (temp[0] == problemSpecMCP[0]){
+                        // No missionaries on the Goal Side
                         if(temp[0] >= temp[1]){
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = this->pathcost + stepCost(1);
                             successorSet.push_back(newNode);
                         }
                     }
-                        // No missionaries on the initial side
                     else if (temp[0] == 0){
+                        // No missionaries on the initial side
                         if(problemSpecMCP[0] - temp[0] >= problemSpecMCP[1] - temp[1]){
                             // Add temp to the list of successors
                             NodeMCP* newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = this->pathcost + stepCost(2);
                             successorSet.push_back(newNode);
                         }
                     }else {
@@ -219,6 +234,7 @@ public:
                             // Add temp to the list of successors
                             NodeMCP *newNode = new NodeMCP(temp);
                             newNode->prev = this;
+                            newNode->pathcost = this->pathcost + stepCost(3);
                             successorSet.push_back(newNode);
                         }
                     }

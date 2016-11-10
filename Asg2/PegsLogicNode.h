@@ -100,7 +100,7 @@ public:
             }
             cout << endl;
         }
-        cout << "---------FINISH--------" << endl;
+        cout << "---------FINISH--------" << "path Cost: " << pathcost << endl;
     }
 
 
